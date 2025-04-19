@@ -32,10 +32,10 @@ body {
 
 .display {
   text-align: right;
-  font-size: 32px;
+  font-size: 26px;
 }
 
-.ac {
+.all-clear {
   margin-right: 32px;
   align-self: flex-end;
   font-size: 24px;
@@ -55,7 +55,7 @@ button:hover {
   cursor: pointer;
 }
 
-.ope {
+.operator {
   background-color: lightblue;
 }
 
