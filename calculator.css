@@ -4,3 +4,62 @@
   box-sizing: border-box;
 }
 
+body {
+  font-family: Arial, Helvetica, sans-serif;
+  background: steelblue;
+}
+
+.container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  width: 340px;
+  height: 480px;
+  margin: 80px auto;
+  background-color: #eee;
+  border-radius: 12px;
+}
+
+.display-container {
+  padding: 12px;
+  margin-bottom: 32px;
+  width: 300px;
+  height: 60px;
+  background-color: aqua;
+  border-radius: 8px;
+}
+
+.display {
+  text-align: right;
+  font-size: 32px;
+}
+
+.ac {
+  margin-right: 32px;
+  align-self: flex-end;
+  font-size: 24px;
+}
+
+button {
+  margin: 8px 4px;
+  border: none;
+  width: 60px;
+  height: 48px;
+  border-radius: 8px;
+  background-color: #ccc;
+  font-size: 32px;
+}
+
+button:hover {
+  cursor: pointer;
+}
+
+.ope {
+  background-color: lightblue;
+}
+
+.equals {
+  background-color: blue;
+  color: white;
+}
