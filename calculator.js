@@ -1,7 +1,5 @@
 const display = document.querySelector('.display');
 const buttons = document.querySelectorAll('button');
-const one = document.querySelector('.one');
-
 let firstNum = '';
 let operator = '';
 let secondNum = '';
@@ -11,14 +9,45 @@ let result;
 
 buttons.forEach(button => {
   button.addEventListener('click', () => {
+    if (button.className.includes('back-space')) {
+      if (firstNum === '' && !operator) {
+        return;
+      }
+      if (firstNum === result && !operator) {
+        firstNum = '0';
+        display.textContent = firstNum;
+        return;
+      }
+      if (operator && secondNum === '') {
+        operator = '';
+        onSecondNum = false;
+      }
+      if (!onSecondNum) {
+        if (typeof(firstNum) === 'number') {
+          firstNum = firstNum.toString();
+        }
+        if (firstNum.length === 1) {
+          firstNum = '0';
+        } else {
+          firstNum = firstNum.slice(0, firstNum.length -1);
+        }
+        display.textContent = firstNum;
+      } else {
+        if (secondNum.length === 1) {
+          secondNum = '0';
+        } else {
+          secondNum = secondNum.slice(0, secondNum.length -1);
+        }
+        display.textContent = secondNum;
+      }
+    }
     if (button.className.includes('all-clear')) {
       firstNum = '';
       operator = '';
       secondNum = '';
-      display.textContent = '';
+      display.textContent = '0';
       onSecondNum = false;
       freezed = false;
-      display.textContent = '0';
       return;
     }
     if (freezed) {
@@ -26,7 +55,7 @@ buttons.forEach(button => {
     }
     if (button.className.includes('number')) {
       if (!onSecondNum) {
-        if (firstNum === result) {
+        if (firstNum === result && !operator) {
           firstNum = '';
         }
         if (firstNum === '0') {
@@ -35,6 +64,9 @@ buttons.forEach(button => {
           }
           firstNum = button.textContent;
         } else {
+          if (firstNum.length >= 12) {
+            return;
+          }
           firstNum += button.textContent;
         }
         display.textContent = firstNum;
@@ -45,24 +77,25 @@ buttons.forEach(button => {
           }
           secondNum = button.textContent;
         } else {
+          if (secondNum.length >= 12) {
+            return;
+          }
           secondNum += button.textContent;
         }
-        if (operator === '*') {
-          display.innerHTML = firstNum + '&#215;' + secondNum;
-        } else if (operator === '/') {
-          display.innerHTML = firstNum + '&#247;' + secondNum;
-        } else {
-          display.textContent = firstNum + operator + secondNum;
-        }
+        display.textContent = secondNum;
       }
     }
     if (button.className.includes('decimal')) {
+      if (firstNum === '' || firstNum === result && !operator) {
+        firstNum = '0';
+      }
       if (!onSecondNum) {
         firstNum += '.';
+        display.textContent = firstNum;
       } else {
         secondNum += '.';
+        display.textContent = secondNum;
       }
-      display.textContent += '.';
     }
     if (button.className.includes('operator')) {
       if (firstNum === '') {
@@ -83,19 +116,11 @@ buttons.forEach(button => {
       } else if (button.className.includes('add')) {
         operator = '+';
       }
-      if (operator === '*') {
-        display.innerHTML = firstNum + '&#215;';
-      } else if (operator === '/') {
-        display.innerHTML = firstNum + '&#247;';
-      } else {
-        display.textContent = firstNum + operator;
-      }
     }
     if (button.className.includes('equals')) {
       if (firstNum && operator && secondNum || firstNum === 0 && operator && secondNum) {
         displayOperation();
       }
-      return;
     }
   });
 });
@@ -162,6 +187,121 @@ function displayOperation() {
   firstNum = result;
   operator = '';
   secondNum = '';
-  display.textContent = result;
+  display.textContent = firstNum;
   onSecondNum = false;
 }
+
+document.addEventListener('keydown', (e) => {
+  if (e.key === 'Backspace') {
+    if (firstNum === '' && !operator) {
+      display.textContent = '0';
+      return;
+    }
+    if (firstNum === result && !operator) {
+      firstNum = '0';
+      display.textContent = firstNum;
+      return;
+    }
+    if (operator && secondNum === '') {
+      operator = '';
+      onSecondNum = false;
+    }
+    if (!onSecondNum) {
+      if (typeof(firstNum) === 'number') {
+        firstNum = firstNum.toString();
+      }
+      if (firstNum.length === 1) {
+        firstNum = '0';
+      } else {
+        firstNum = firstNum.slice(0, firstNum.length -1);
+      }
+      display.textContent = firstNum;
+    } else {
+      if (secondNum.length === 1) {
+        secondNum = '0';
+      } else {
+        secondNum = secondNum.slice(0, secondNum.length -1);
+      }
+      display.textContent = secondNum;
+    }
+  }
+  if (e.key === 'Delete') {
+    firstNum = '';
+    operator = '';
+    secondNum = '';
+    display.textContent = '0';
+    onSecondNum = false;
+    freezed = false;
+    return;
+  }
+  if (freezed) {
+    return;
+  }
+
+  const numberKeys = '0123456789';
+
+  if (numberKeys.includes(e.key)) {
+    if (!onSecondNum) {
+      if (firstNum === result && !operator) {
+        firstNum = '';
+      }
+      if (firstNum === '0') {
+        if (e.key === '0') {
+          return;
+        }
+        firstNum = e.key;
+      } else {
+        if (firstNum.length >= 12) {
+          return;
+        }
+        firstNum += e.key;
+      }
+      display.textContent = firstNum;
+    } else {
+      if (secondNum === '0') {
+        if (e.key === '0') {
+          return;
+        }
+        secondNum = e.key;
+      } else {
+        if (secondNum.length >= 12) {
+          return;
+        }
+        secondNum += e.key;
+      }
+      display.textContent = secondNum;
+    }
+  }
+  if (e.key === '.') {
+    if (firstNum === '' || firstNum === result && !operator) {
+      firstNum = '0';
+    }
+    if (!onSecondNum) {
+      firstNum += '.';
+      display.textContent = firstNum;
+    } else {
+      secondNum += '.';
+      display.textContent = secondNum;
+    }
+  }
+
+  const operatorSymbols = '+-*/';
+
+  if (operatorSymbols.includes(e.key)) {
+    if (firstNum === '') {
+      return;
+    }
+
+    if (secondNum) {
+      displayOperation();
+    }
+    onSecondNum = true;
+    operator = e.key;
+  }
+  if (e.key === '=' || e.key === 'Enter') {
+    if (firstNum && operator && secondNum || firstNum === 0 && operator && secondNum) {
+      displayOperation();
+      console.log(result);
+    }
+  }
+});

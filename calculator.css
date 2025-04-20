@@ -16,7 +16,7 @@ body {
   align-items: center;
   width: 340px;
   height: 480px;
-  margin: 80px auto;
+  margin: 100px auto;
   background-color: #fff;
   border-radius: 12px;
 }
@@ -27,7 +27,9 @@ body {
   width: 296px;
   height: 64px;
   background-color: aquamarine;
+  color: #222;
   border-radius: 8px;
+  border: 4px solid #cacaca;
 }
 
 .display {
@@ -37,9 +39,21 @@ body {
   letter-spacing: 2px;
 }
 
+.first-row {
+  display: flex;
+  width: 100%;
+  justify-content: flex-end;
+}
+
+.back-space {
+  margin-right: 8px;
+  font-size: 24px;
+  background-color:forestgreen;
+  color: #fff;
+}
+
 .all-clear {
   margin-right: 24px;
-  align-self: flex-end;
   font-size: 24px;
   background-color: orangered;
   color: #fff;
@@ -51,7 +65,8 @@ button {
   width: 64px;
   height: 52px;
   border-radius: 8px;
-  background-color: #ccc;
+  background-color: #cacaca;
+  color: #111;
   font-size: 32px;
   font-weight: 600;
 }
@@ -60,11 +75,15 @@ button:hover {
   cursor: pointer;
 }
 
+button:active {
+  opacity: 0.8;
+}
+
 .operator {
-  background-color: lightblue;
+  background-color:skyblue;
 }
 
 .equals {
-  background-color: mediumblue;
+  background-color:royalblue;
   color: white;
 }
