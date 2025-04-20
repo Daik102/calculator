@@ -17,38 +17,43 @@ body {
   width: 340px;
   height: 480px;
   margin: 80px auto;
-  background-color: #eee;
+  background-color: #fff;
   border-radius: 12px;
 }
 
 .display-container {
   padding: 12px;
-  margin-bottom: 32px;
-  width: 300px;
-  height: 60px;
-  background-color: aqua;
+  margin: 8px 0 32px;
+  width: 296px;
+  height: 64px;
+  background-color: aquamarine;
   border-radius: 8px;
 }
 
 .display {
   text-align: right;
-  font-size: 26px;
+  font-size: 36px;
+  font-weight: 600;
+  letter-spacing: 2px;
 }
 
 .all-clear {
-  margin-right: 32px;
+  margin-right: 24px;
   align-self: flex-end;
   font-size: 24px;
+  background-color: orangered;
+  color: #fff;
 }
 
 button {
   margin: 8px 4px;
   border: none;
-  width: 60px;
-  height: 48px;
+  width: 64px;
+  height: 52px;
   border-radius: 8px;
   background-color: #ccc;
   font-size: 32px;
+  font-weight: 600;
 }
 
 button:hover {
@@ -60,6 +65,6 @@ button:hover {
 }
 
 .equals {
-  background-color: blue;
+  background-color: mediumblue;
   color: white;
 }

@@ -5,7 +5,6 @@ const one = document.querySelector('.one');
 let firstNum = '';
 let operator = '';
 let secondNum = '';
-let value = '';
 let onSecondNum;
 let freezed;
 let result;
@@ -16,10 +15,10 @@ buttons.forEach(button => {
       firstNum = '';
       operator = '';
       secondNum = '';
-      value = '';
       display.textContent = '';
       onSecondNum = false;
       freezed = false;
+      display.textContent = '0';
       return;
     }
     if (freezed) {
@@ -27,9 +26,34 @@ buttons.forEach(button => {
     }
     if (button.className.includes('number')) {
       if (!onSecondNum) {
-        firstNum += button.textContent;
+        if (firstNum === result) {
+          firstNum = '';
+        }
+        if (firstNum === '0') {
+          if (button.className.includes('zero')) {
+            return;
+          }
+          firstNum = button.textContent;
+        } else {
+          firstNum += button.textContent;
+        }
+        display.textContent = firstNum;
       } else {
-        secondNum += button.textContent;
+        if (secondNum === '0') {
+          if (button.className.includes('zero')) {
+            return;
+          }
+          secondNum = button.textContent;
+        } else {
+          secondNum += button.textContent;
+        }
+        if (operator === '*') {
+          display.innerHTML = firstNum + '&#215;' + secondNum;
+        } else if (operator === '/') {
+          display.innerHTML = firstNum + '&#247;' + secondNum;
+        } else {
+          display.textContent = firstNum + operator + secondNum;
+        }
       }
     }
     if (button.className.includes('decimal')) {
@@ -38,9 +62,18 @@ buttons.forEach(button => {
       } else {
         secondNum += '.';
       }
+      display.textContent += '.';
     }
     if (button.className.includes('operator')) {
+      if (firstNum === '') {
+        return;
+      }
+
+      if (secondNum) {
+        displayOperation();
+      }
       onSecondNum = true;
+      
       if (button.className.includes('multiply')) {
         operator = '*';
       } else if (button.className.includes('divide')) {
@@ -50,40 +83,61 @@ buttons.forEach(button => {
       } else if (button.className.includes('add')) {
         operator = '+';
       }
+      if (operator === '*') {
+        display.innerHTML = firstNum + '&#215;';
+      } else if (operator === '/') {
+        display.innerHTML = firstNum + '&#247;';
+      } else {
+        display.textContent = firstNum + operator;
+      }
     }
     if (button.className.includes('equals')) {
-      if (firstNum && operator && secondNum) {
-        if (operator === '/' && secondNum === '0') {
-          display.textContent = 'You can not divide by 0!';
-          freezed = true;
-          return;
-        }
-        operate();
-        value += '=' + result;
-        display.textContent = value;
-        onSecondNum = false;
-      } 
+      if (firstNum && operator && secondNum || firstNum === 0 && operator && secondNum) {
+        displayOperation();
+      }
       return;
     }
-    value += button.textContent;
-    display.textContent = value;
   });
 });
 
 function add(a, b) {
-  return Number(a) + Number(b);
+  if ((Number(a) + Number(b)) >= 1000000000000) {
+    freezed = true;
+    return 'Over trillion!';
+  } else {
+    return Number(a) + Number(b); 
+  }
 }
 
 function subtract(a, b) {
-  return a - b;
+  if ((a - b) <= -1000000000000) {
+    freezed = true;
+    return 'Under trillion!';
+  } else {
+    return a - b;
+  }
 }
 
 function multiply(a, b) {
-  return a * b;
+  if ((a * b) >= 1000000000000) {
+    freezed = true;
+    return 'Over trillion!';
+  } else if ((a * b) <= -1000000000000) {
+    freezed = true;
+    return 'Under trillion!';
+  } {
+    return a * b;
+  }
 }
 
 function divide(a, b) {
-  return (a / b).toFixed(8);
+  if (!Number.isInteger(a / b)) {
+    const string = (a / b).toString().split('.');
+    if (string[1].length >= 8) {
+    return string[0] + '.' + string[1].slice(0, 8);
+    }
+  } 
+  return a / b;
 }
 
 function operate() {
@@ -98,3 +152,16 @@ function operate() {
   }
 }
 
+function displayOperation() {
+  if (operator === '/' && secondNum === '0') {
+    display.textContent = 'No kidding!';
+    freezed = true;
+    return;
+  }
+  operate();
+  firstNum = result;
+  operator = '';
+  secondNum = '';
+  display.textContent = result;
+  onSecondNum = false;
+}
