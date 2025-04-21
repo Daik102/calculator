@@ -1,14 +1,162 @@
 const display = document.querySelector('.display');
 const buttons = document.querySelectorAll('button');
+const allClear = document.querySelector('.all-clear');
+const backSpace = document.querySelector('.back-space');
 let firstNum = '';
 let operator = '';
 let secondNum = '';
+let result = '';
 let onSecondNum;
 let freezed;
-let result;
+let matrix;
+let bluePill;
+
+function add(a, b) {
+  if ((Number(a) + Number(b)) >= 1000000000000) {
+    freezed = true;
+    return 'Over trillion!';
+  } 
+  const sum = (Number(a) + Number(b)).toString();
+  if (sum.length >= 13) {
+    const twelveDigit = sum.slice(0, 12);
+    if (twelveDigit.slice(-1) === '.') {
+      return twelveDigit.slice(0, 11);
+    } else {
+      return twelveDigit;
+    }
+  } else {
+    return sum;
+  }
+}
+
+function subtract(a, b) {
+  if ((a - b) <= -1000000000000) {
+    freezed = true;
+    return 'Under trillion!';
+  }
+    const difference = (a - b).toString();
+    if (difference.length >= 14) {
+      const thirteenDigit = difference.slice(0, 13);
+      if (thirteenDigit.slice(-1) === '.') {
+        return thirteenDigit.slice(0, 12);
+      } else {
+        return thirteenDigit;
+      }
+    } else {
+      return difference;
+    }
+}
+
+function multiply(a, b) {
+  if ((a * b) >= 1000000000000) {
+    freezed = true;
+    return 'Over trillion!';
+  } 
+  if ((a * b) <= -1000000000000) {
+    freezed = true;
+    return 'Under trillion!';
+  }
+  const product = (a * b).toString();
+  if (product.includes('-') && product.length >= 14) {
+    const thirteenDigit = product.slice(0, 13);
+    if (thirteenDigit.slice(-1) === '.') {
+      return thirteenDigit.slice(0, 12);
+    } else {
+      return thirteenDigit;
+    }
+  } else if (product.length >= 13) {
+    const twelveDigit = product.slice(0, 12);
+    if (twelveDigit.slice(-1) === '.') {
+      return twelveDigit.slice(0, 11);
+    } else {
+      return twelveDigit;
+    }
+  } else {
+    return product;
+  }
+}
+
+function divide(a, b) {
+  const quotient = (a / b).toString();
+  if (quotient.includes('-') && quotient.length >= 14) {
+    const thirteenDigit = quotient.slice(0, 13);
+    if (thirteenDigit.slice(-1) === '.') {
+      return thirteenDigit.slice(0, 12);
+    } else {
+      return thirteenDigit;
+    }
+  } else if (quotient.length >= 13) {
+    const twelveDigit = quotient.slice(0, 12);
+    if (twelveDigit.slice(-1) === '.') {
+      return twelveDigit.slice(0, 11);
+    } else {
+      return twelveDigit;
+    }
+  } else {
+    return quotient;
+  }
+}
+
+function operate() {
+  if (operator === '/' && secondNum === '0') {
+    display.textContent = 'Welcome to the Matrix';
+    matrix = true;
+    freezed = true;
+    document.body.classList.add('white-world');
+    display.classList.add('small-font');
+    buttons.forEach(button => {
+      button.classList.add('white-world');
+    });
+    allClear.classList.remove('white-world');
+    allClear.textContent = 'RP';
+    backSpace.classList.add('blue-pill');
+    backSpace.textContent = 'BP';
+    bluePill = true;
+    return;
+  }
+  if (operator === '+') {
+    result = add(firstNum, secondNum);
+  } else if (operator === '-') {
+    result = subtract(firstNum, secondNum);
+  } else if (operator === '*') {
+    result = multiply(firstNum, secondNum);
+  } else if (operator === '/') {
+    result = divide(firstNum, secondNum);
+  }
+  result = result.toString();
+  firstNum = result;
+  operator = '';
+  secondNum = '';
+  onSecondNum = false;
+  display.textContent = firstNum;
+}
 
 buttons.forEach(button => {
   button.addEventListener('click', () => {
+    if (button.className.includes('all-clear')) {
+      if (matrix) {
+        matrix = false;
+        bluePill = false;
+        document.body.classList.remove('white-world');
+        display.classList.remove('small-font');
+        buttons.forEach(button => {
+          button.classList.remove('white-world');
+        });
+        allClear.textContent = 'AC';
+        backSpace.classList.remove('blue-pill');
+        backSpace.textContent = 'BS';
+      }
+      firstNum = '';
+      operator = '';
+      secondNum = '';
+      onSecondNum = false;
+      freezed = false;
+      display.textContent = '0';
+      return;
+    }
+    if (freezed) {
+      return;
+    }
     if (button.className.includes('back-space')) {
       if (firstNum === '' && !operator) {
         return;
@@ -23,9 +171,6 @@ buttons.forEach(button => {
         onSecondNum = false;
       }
       if (!onSecondNum) {
-        if (typeof(firstNum) === 'number') {
-          firstNum = firstNum.toString();
-        }
         if (firstNum.length === 1) {
           firstNum = '0';
         } else {
@@ -40,18 +185,6 @@ buttons.forEach(button => {
         }
         display.textContent = secondNum;
       }
-    }
-    if (button.className.includes('all-clear')) {
-      firstNum = '';
-      operator = '';
-      secondNum = '';
-      display.textContent = '0';
-      onSecondNum = false;
-      freezed = false;
-      return;
-    }
-    if (freezed) {
-      return;
     }
     if (button.className.includes('number')) {
       if (!onSecondNum) {
@@ -90,9 +223,15 @@ buttons.forEach(button => {
         firstNum = '0';
       }
       if (!onSecondNum) {
+        if (firstNum.includes('.')) {
+          return;
+        }
         firstNum += '.';
         display.textContent = firstNum;
       } else {
+        if (secondNum.includes('.')) {
+          return;
+        }
         secondNum += '.';
         display.textContent = secondNum;
       }
@@ -103,7 +242,7 @@ buttons.forEach(button => {
       }
 
       if (secondNum) {
-        displayOperation();
+        operate();
       }
       onSecondNum = true;
       
@@ -118,80 +257,37 @@ buttons.forEach(button => {
       }
     }
     if (button.className.includes('equals')) {
-      if (firstNum && operator && secondNum || firstNum === 0 && operator && secondNum) {
-        displayOperation();
+      if (firstNum && secondNum) {
+        operate();
       }
     }
   });
 });
 
-function add(a, b) {
-  if ((Number(a) + Number(b)) >= 1000000000000) {
-    freezed = true;
-    return 'Over trillion!';
-  } else {
-    return Number(a) + Number(b); 
-  }
-}
-
-function subtract(a, b) {
-  if ((a - b) <= -1000000000000) {
-    freezed = true;
-    return 'Under trillion!';
-  } else {
-    return a - b;
-  }
-}
-
-function multiply(a, b) {
-  if ((a * b) >= 1000000000000) {
-    freezed = true;
-    return 'Over trillion!';
-  } else if ((a * b) <= -1000000000000) {
-    freezed = true;
-    return 'Under trillion!';
-  } {
-    return a * b;
-  }
-}
-
-function divide(a, b) {
-  if (!Number.isInteger(a / b)) {
-    const string = (a / b).toString().split('.');
-    if (string[1].length >= 8) {
-    return string[0] + '.' + string[1].slice(0, 8);
+document.addEventListener('keydown', (e) => {
+  if (e.key === 'Delete') {
+    if (matrix) {
+      matrix = false;
+      document.body.classList.remove('white-world');
+      display.classList.remove('small-font');
+      buttons.forEach(button => {
+        button.classList.remove('white-world');
+      });
+      allClear.textContent = 'AC';
+      backSpace.classList.remove('blue-pill');
+      backSpace.textContent = 'BS';
     }
-  } 
-  return a / b;
-}
-
-function operate() {
-  if (operator === '+') {
-    result = add(firstNum, secondNum);
-  } else if (operator === '-') {
-    result = subtract(firstNum, secondNum);
-  } else if (operator === '*') {
-    result = multiply(firstNum, secondNum);
-  } else if (operator === '/') {
-    result = divide(firstNum, secondNum);
-  }
-}
-
-function displayOperation() {
-  if (operator === '/' && secondNum === '0') {
-    display.textContent = 'No kidding!';
-    freezed = true;
+    firstNum = '';
+    operator = '';
+    secondNum = '';
+    onSecondNum = false;
+    freezed = false;
+    display.textContent = '0';
     return;
   }
-  operate();
-  firstNum = result;
-  operator = '';
-  secondNum = '';
-  display.textContent = firstNum;
-  onSecondNum = false;
-}
-
-document.addEventListener('keydown', (e) => {
+  if (freezed) {
+    return;
+  }
   if (e.key === 'Backspace') {
     if (firstNum === '' && !operator) {
       display.textContent = '0';
@@ -207,9 +303,6 @@ document.addEventListener('keydown', (e) => {
       onSecondNum = false;
     }
     if (!onSecondNum) {
-      if (typeof(firstNum) === 'number') {
-        firstNum = firstNum.toString();
-      }
       if (firstNum.length === 1) {
         firstNum = '0';
       } else {
@@ -224,18 +317,6 @@ document.addEventListener('keydown', (e) => {
       }
       display.textContent = secondNum;
     }
-  }
-  if (e.key === 'Delete') {
-    firstNum = '';
-    operator = '';
-    secondNum = '';
-    display.textContent = '0';
-    onSecondNum = false;
-    freezed = false;
-    return;
-  }
-  if (freezed) {
-    return;
   }
 
   const numberKeys = '0123456789';
@@ -277,9 +358,15 @@ document.addEventListener('keydown', (e) => {
       firstNum = '0';
     }
     if (!onSecondNum) {
+      if (firstNum.includes('.')) {
+        return;
+      }
       firstNum += '.';
       display.textContent = firstNum;
     } else {
+      if (secondNum.includes('.')) {
+        return;
+      }
       secondNum += '.';
       display.textContent = secondNum;
     }
@@ -291,17 +378,18 @@ document.addEventListener('keydown', (e) => {
     if (firstNum === '') {
       return;
     }
-
     if (secondNum) {
-      displayOperation();
+      operate();
     }
     onSecondNum = true;
     operator = e.key;
   }
+  if (e.key === 'Enter') {
+    e.preventDefault();
+  }
   if (e.key === '=' || e.key === 'Enter') {
-    if (firstNum && operator && secondNum || firstNum === 0 && operator && secondNum) {
-      displayOperation();
-      console.log(result);
+    if (firstNum && secondNum) {
+      operate();
     }
   }
 });

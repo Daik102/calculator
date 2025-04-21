@@ -1,3 +1,7 @@
+@import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@400..900&family=Roboto:ital,wght@0,100..900;1,100..900&display=swap');
+
+@import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@400..900&family=Roboto:ital,wght@0,100..900;1,100..900&display=swap');
+
 * {
   margin: 0;
   padding: 0;
@@ -5,7 +9,6 @@
 }
 
 body {
-  font-family: Arial, Helvetica, sans-serif;
   background: steelblue;
 }
 
@@ -19,24 +22,31 @@ body {
   margin: 100px auto;
   background-color: #fff;
   border-radius: 12px;
+  box-shadow: 0 16px 0 #b5b5b5, 12px 28px 12px 0 rgba(0, 0, 0, 0.2);
 }
 
 .display-container {
-  padding: 12px;
+  padding: 12px 8px;
   margin: 8px 0 32px;
   width: 296px;
   height: 64px;
-  background-color: aquamarine;
-  color: #222;
+  background-color:rgb(155, 210, 44);
+  color: rgb(53, 69, 31);
   border-radius: 8px;
-  border: 4px solid #cacaca;
+  border: 4px solid #777;
 }
 
 .display {
+  font-family: Roboto, Arial, Helvetica, sans-serif;
   text-align: right;
   font-size: 36px;
   font-weight: 600;
-  letter-spacing: 2px;
+  letter-spacing: 1px;
+}
+
+.small-font {
+  margin-top: 4px;
+  font-size: 24px; 
 }
 
 .first-row {
@@ -60,6 +70,7 @@ body {
 }
 
 button {
+  font-family: Arial, Helvetica, sans-serif;
   margin: 8px 4px;
   border: none;
   width: 64px;
@@ -69,6 +80,7 @@ button {
   color: #111;
   font-size: 32px;
   font-weight: 600;
+  box-shadow: inset -4px -4px 4px 0 rgba(0, 0, 0, 0.2);
 }
 
 button:hover {
@@ -86,4 +98,13 @@ button:active {
 .equals {
   background-color:royalblue;
   color: white;
+}
+
+.white-world {
+  background: #fff;
+  color: #fff;
+}
+
+.blue-pill {
+  background-color: mediumblue;
 }
