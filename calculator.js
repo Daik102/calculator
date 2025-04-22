@@ -1,7 +1,9 @@
+const displayContainer = document.querySelector('.display-container');
 const display = document.querySelector('.display');
 const buttons = document.querySelectorAll('button');
 const allClear = document.querySelector('.all-clear');
 const backSpace = document.querySelector('.back-space');
+const factor = 10000;
 let firstNum = '';
 let operator = '';
 let secondNum = '';
@@ -9,14 +11,13 @@ let result = '';
 let onSecondNum;
 let freezed;
 let matrix;
-let bluePill;
 
 function add(a, b) {
-  if ((Number(a) + Number(b)) >= 1000000000000) {
+  const sum = ((Number(a) * factor + Number(b) * factor) / factor).toString();
+  if ((sum) >= 1000000000000) {
     freezed = true;
     return 'Over trillion!';
   } 
-  const sum = (Number(a) + Number(b)).toString();
   if (sum.length >= 13) {
     const twelveDigit = sum.slice(0, 12);
     if (twelveDigit.slice(-1) === '.') {
@@ -30,33 +31,33 @@ function add(a, b) {
 }
 
 function subtract(a, b) {
-  if ((a - b) <= -1000000000000) {
+  const difference = ((a * factor - b * factor) / factor).toString();
+  if ((difference) <= -1000000000000) {
     freezed = true;
     return 'Under trillion!';
   }
-    const difference = (a - b).toString();
-    if (difference.length >= 14) {
-      const thirteenDigit = difference.slice(0, 13);
-      if (thirteenDigit.slice(-1) === '.') {
-        return thirteenDigit.slice(0, 12);
-      } else {
-        return thirteenDigit;
-      }
+  if (difference.length >= 14) {
+    const thirteenDigit = difference.slice(0, 13);
+    if (thirteenDigit.slice(-1) === '.') {
+      return thirteenDigit.slice(0, 12);
     } else {
-      return difference;
+      return thirteenDigit;
     }
+  } else {
+    return difference;
+  }
 }
 
 function multiply(a, b) {
-  if ((a * b) >= 1000000000000) {
+  const product = (((a * factor) * (b * factor)) / (factor * factor)).toString();
+  if ((product) >= 1000000000000) {
     freezed = true;
     return 'Over trillion!';
   } 
-  if ((a * b) <= -1000000000000) {
+  if ((product) <= -1000000000000) {
     freezed = true;
     return 'Under trillion!';
   }
-  const product = (a * b).toString();
   if (product.includes('-') && product.length >= 14) {
     const thirteenDigit = product.slice(0, 13);
     if (thirteenDigit.slice(-1) === '.') {
@@ -77,7 +78,15 @@ function multiply(a, b) {
 }
 
 function divide(a, b) {
-  const quotient = (a / b).toString();
+  const quotient = (((a * factor) / (b * factor))).toString();
+  if ((quotient) >= 1000000000000) {
+    freezed = true;
+    return 'Over trillion!';
+  } 
+  if ((quotient) <= -1000000000000) {
+    freezed = true;
+    return 'Under trillion!';
+  }
   if (quotient.includes('-') && quotient.length >= 14) {
     const thirteenDigit = quotient.slice(0, 13);
     if (thirteenDigit.slice(-1) === '.') {
@@ -103,15 +112,15 @@ function operate() {
     matrix = true;
     freezed = true;
     document.body.classList.add('white-world');
+    displayContainer.classList.add('white-display');
     display.classList.add('small-font');
     buttons.forEach(button => {
       button.classList.add('white-world');
     });
     allClear.classList.remove('white-world');
-    allClear.textContent = 'RP';
+    allClear.textContent = 'Red';
     backSpace.classList.add('blue-pill');
-    backSpace.textContent = 'BP';
-    bluePill = true;
+    backSpace.textContent = 'Blue';
     return;
   }
   if (operator === '+') {
@@ -123,7 +132,6 @@ function operate() {
   } else if (operator === '/') {
     result = divide(firstNum, secondNum);
   }
-  result = result.toString();
   firstNum = result;
   operator = '';
   secondNum = '';
@@ -136,8 +144,8 @@ buttons.forEach(button => {
     if (button.className.includes('all-clear')) {
       if (matrix) {
         matrix = false;
-        bluePill = false;
         document.body.classList.remove('white-world');
+        displayContainer.classList.remove('white-display');
         display.classList.remove('small-font');
         buttons.forEach(button => {
           button.classList.remove('white-world');
@@ -219,16 +227,19 @@ buttons.forEach(button => {
       }
     }
     if (button.className.includes('decimal')) {
-      if (firstNum === '' || firstNum === result && !operator) {
-        firstNum = '0';
-      }
       if (!onSecondNum) {
+        if (firstNum === '' || firstNum === result && !operator) {
+          firstNum = '0';
+        }
         if (firstNum.includes('.')) {
           return;
         }
         firstNum += '.';
         display.textContent = firstNum;
       } else {
+        if (secondNum === '') {
+          secondNum = '0';
+        }
         if (secondNum.includes('.')) {
           return;
         }
@@ -240,12 +251,9 @@ buttons.forEach(button => {
       if (firstNum === '') {
         return;
       }
-
       if (secondNum) {
         operate();
       }
-      onSecondNum = true;
-      
       if (button.className.includes('multiply')) {
         operator = '*';
       } else if (button.className.includes('divide')) {
@@ -255,6 +263,7 @@ buttons.forEach(button => {
       } else if (button.className.includes('add')) {
         operator = '+';
       }
+      onSecondNum = true;
     }
     if (button.className.includes('equals')) {
       if (firstNum && secondNum) {
@@ -269,6 +278,7 @@ document.addEventListener('keydown', (e) => {
     if (matrix) {
       matrix = false;
       document.body.classList.remove('white-world');
+      displayContainer.classList.remove('white-display');
       display.classList.remove('small-font');
       buttons.forEach(button => {
         button.classList.remove('white-world');
@@ -354,16 +364,19 @@ document.addEventListener('keydown', (e) => {
     }
   }
   if (e.key === '.') {
-    if (firstNum === '' || firstNum === result && !operator) {
-      firstNum = '0';
-    }
     if (!onSecondNum) {
+      if (firstNum === '' || firstNum === result && !operator) {
+        firstNum = '0';
+      }
       if (firstNum.includes('.')) {
         return;
       }
       firstNum += '.';
       display.textContent = firstNum;
     } else {
+      if (secondNum === '') {
+        secondNum = '0';
+      }
       if (secondNum.includes('.')) {
         return;
       }
@@ -381,8 +394,8 @@ document.addEventListener('keydown', (e) => {
     if (secondNum) {
       operate();
     }
-    onSecondNum = true;
     operator = e.key;
+    onSecondNum = true;
   }
   if (e.key === 'Enter') {
     e.preventDefault();
