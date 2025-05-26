@@ -1,16 +1,20 @@
-@import url('https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100..900;1,100..900&display=swap');
+@font-face {
+  font-family: Roboto;
+  src: url(./font/Roboto-VariableFont_wdth\,wght.woff2) format('woff2');
+}
 
 * {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
+  font-size: 10px;
 }
 
 body {
   display: grid;
   place-content: center;
   height: 100vh;
-  background: steelblue;
+  background: rgb(61, 129, 185);
 }
 
 .container {
@@ -18,31 +22,31 @@ body {
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  width: 340px;
-  height: 480px;
-  margin: 0 auto 52px;
+  width: 34rem;
+  height: 48rem;
+  margin: 0 auto 5.2rem;
   background: #fff;
-  border-radius: 12px;
-  box-shadow: 0 16px 0 #b5b5b5, 12px 28px 12px 0 rgba(0, 0, 0, 0.25);
+  border-radius: 1.2rem;
+  box-shadow: 0 1.6rem 0 #b5b5b5, 1.2rem 2.8rem 1.2rem 0 rgba(0, 0, 0, 0.25);
 }
 
 .display-container {
-  padding: 12px 8px;
-  margin: 8px 0 32px;
-  width: 296px;
-  height: 64px;
+  padding: 1.2rem 0.8rem;
+  margin: 0.8rem 0 3.2rem;
+  width: 29.6rem;
+  height: 6.4rem;
   background:linear-gradient(rgb(193, 230, 45), rgb(163, 198, 22));
   color: rgb(66, 90, 34);
-  border-radius: 8px;
-  border: 4px solid #777;
+  border-radius: 0.8rem;
+  border: 0.4rem solid #777;
 }
 
 .display {
   font-family: Roboto, Arial, Helvetica, sans-serif;
   text-align: right;
-  font-size: 36px;
+  font-size: 3.6rem;
   font-weight: 600;
-  letter-spacing: 1px;
+  letter-spacing: 0.1rem;
 }
 
 .first-row {
@@ -52,31 +56,31 @@ body {
 }
 
 .back-space {
-  margin-right: 8px;
+  margin-right: 0.8rem;
   font-size: 24px;
   background:forestgreen;
   color: #fff;
 }
 
 .all-clear {
-  margin-right: 24px;
-  font-size: 24px;
+  margin-right: 2.4rem;
+  font-size: 2.4rem;
   background: orangered;
   color: #fff;
 }
 
 button {
   font-family: Arial, Helvetica, sans-serif;
-  margin: 8px 4px;
+  margin: 0.8rem 0.4rem;
   border: none;
-  width: 64px;
-  height: 52px;
-  border-radius: 8px;
+  width: 6.4rem;
+  height: 5.2rem;
+  border-radius: 0.8rem;
   background: #c7c7c7;
   color: #111;
-  font-size: 32px;
+  font-size: 3.2rem;
   font-weight: 600;
-  box-shadow: inset -4px -4px 4px 0 rgba(0, 0, 0, 0.25);
+  box-shadow: inset -0.4rem -0.4rem 0.4rem 0 rgba(0, 0, 0, 0.25);
 }
 
 button:hover {
@@ -93,7 +97,7 @@ button:active {
 
 .equals {
   background:royalblue;
-  color: white;
+  color: #fff;
 }
 
 .white-world {
@@ -107,8 +111,8 @@ button:active {
 }
 
 .small-font {
-  margin-top: 4px;
-  font-size: 24px; 
+  margin-top: 0.4rem;
+  font-size: 2.4rem; 
 }
 
 .blue-pill {
@@ -124,7 +128,7 @@ a {
   font-family: Arial, Helvetica, sans-serif;
   display: block;
   color: #fff;
-  font-size: 18px;
+  font-size: 1.8rem;
   font-weight: 500;
   text-decoration: none;
 }
