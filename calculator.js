@@ -1,8 +1,10 @@
+const title = document.querySelector('.title');
 const displayContainer = document.querySelector('.display-container');
 const display = document.querySelector('.display');
 const buttons = document.querySelectorAll('button');
 const allClear = document.querySelector('.all-clear');
 const backSpace = document.querySelector('.back-space');
+const footer = document.querySelector('.footer');
 const factor = 10000;
 let firstNum = '';
 let operator = '';
@@ -11,6 +13,26 @@ let result = '';
 let onSecondNum;
 let freezed;
 let matrix;
+let hello;
+
+title.addEventListener('click', () => {
+  if (matrix) {
+    return;
+  }
+  if (hello) {
+    if (secondNum !== '') {
+      display.textContent = secondNum;
+    } else if (firstNum !== '') {
+      display.textContent = firstNum;
+    } else {
+      display.textContent = '0';
+    }
+    hello = false;
+    return;
+  }
+  display.textContent = 'Hello';
+  hello = true;
+});
 
 function add(a, b) {
   const sum = ((Number(a) * factor + Number(b) * factor) / factor).toString();
@@ -121,6 +143,8 @@ function operate() {
     allClear.textContent = 'Red';
     backSpace.classList.add('blue-pill');
     backSpace.textContent = 'Blue';
+    title.style.visibility = 'hidden';
+    footer.style.visibility = 'hidden';
     return;
   }
   if (operator === '+') {
@@ -153,10 +177,13 @@ buttons.forEach(button => {
         allClear.textContent = 'AC';
         backSpace.classList.remove('blue-pill');
         backSpace.textContent = 'BS';
+        title.style.visibility = 'visible';
+        footer.style.visibility = 'visible';
       }
       firstNum = '';
       operator = '';
       secondNum = '';
+      result = '';
       onSecondNum = false;
       freezed = false;
       display.textContent = '0';
@@ -286,10 +313,13 @@ document.addEventListener('keydown', (e) => {
       allClear.textContent = 'AC';
       backSpace.classList.remove('blue-pill');
       backSpace.textContent = 'BS';
+      title.style.visibility = 'visible';
+      footer.style.visibility = 'visible';
     }
     firstNum = '';
     operator = '';
     secondNum = '';
+    result = '';
     onSecondNum = false;
     freezed = false;
     display.textContent = '0';
