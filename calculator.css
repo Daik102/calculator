@@ -21,6 +21,14 @@ body {
   font-family: Roboto, Arial, Helvetica, sans-serif;
 }
 
+.main {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 4.8rem;
+}
+
 .title {
   margin-top: -8rem;
   color: #fff;
@@ -52,7 +60,8 @@ body {
   background:linear-gradient(rgb(193, 230, 45), rgb(163, 198, 22));
   color: rgb(66, 90, 34);
   border-radius: 0.8rem;
-  border: 0.4rem solid #777;
+  border: 0.2rem solid #fff;
+  outline: 0.4rem solid #777;
 }
 
 .display {
@@ -118,7 +127,7 @@ button:active {
   color: #fff;
 }
 
-.white-display {
+.matrix-display {
   background: #111;
   color: rgb(0, 199, 0);
 }
