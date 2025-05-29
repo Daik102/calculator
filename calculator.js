@@ -154,6 +154,25 @@ function handleDecimal() {
   }
 }
 
+title.addEventListener('click', () => {
+  if (matrix) {
+    return;
+  }
+  if (hello) {
+    if (secondNum !== '') {
+      display.textContent = secondNum;
+    } else if (firstNum !== '') {
+      display.textContent = firstNum;
+    } else {
+      display.textContent = '0';
+    }
+    hello = false;
+    return;
+  }
+  hello = true;
+  display.textContent = 'Hello';
+});
+
 buttons.forEach(button => {
   button.addEventListener('click', () => {
     if (button.className.includes('all-clear')) {
