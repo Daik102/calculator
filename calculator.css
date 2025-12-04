@@ -17,7 +17,7 @@ body {
   align-items: center;
   gap: 4.8rem;
   height: 100vh;
-  background: rgb(61, 129, 185);
+  background: #3d81b9;
   font-family: Roboto, Arial, Helvetica, sans-serif;
 }
 
@@ -33,11 +33,6 @@ body {
   margin-top: -8rem;
   color: #fff;
   font-size: 3.2rem;
-  cursor: pointer;
-}
-
-.title:hover {
-  opacity: 0.8;
 }
 
 .container {
@@ -57,8 +52,8 @@ body {
   margin: 0.8rem 0 3.2rem;
   width: 29.6rem;
   height: 6.4rem;
-  background:linear-gradient(rgb(193, 230, 45), rgb(163, 198, 22));
-  color: rgb(66, 90, 34);
+  background:linear-gradient(#c1e62d, #a3c616);
+  color: #425a22;
   border-radius: 0.8rem;
   border: 0.2rem solid #fff;
   outline: 0.4rem solid #777;
@@ -80,7 +75,7 @@ body {
 .back-space {
   margin-right: 0.8rem;
   font-size: 24px;
-  background:forestgreen;
+  background: forestgreen;
   color: #fff;
 }
 
@@ -114,11 +109,11 @@ button:active {
 }
 
 .operator {
-  background:skyblue;
+  background: skyblue;
 }
 
 .equals {
-  background:royalblue;
+  background: royalblue;
   color: #fff;
 }
 
@@ -129,7 +124,7 @@ button:active {
 
 .matrix-display {
   background: #111;
-  color: rgb(0, 199, 0);
+  color: #00c700;
 }
 
 .small-font {

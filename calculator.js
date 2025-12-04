@@ -13,17 +13,18 @@ let result = '';
 let onSecondNum;
 let freezed;
 let matrix;
-let hello;
 
 function handleLargeDigits(result) {
   if ((result) >= 1000000000000) {
     freezed = true;
     return 'Over trillion!';
   }
+
   if ((result) <= -1000000000000) {
     freezed = true;
     return 'Under trillion!';
   }
+
   if (result.includes('-')) {
     if (result.length >= 14) {
       result = result.slice(0, 13);
@@ -37,6 +38,7 @@ function handleLargeDigits(result) {
       result = result.slice(0, 11);
     }
   }
+
   return result;
 }
 
@@ -48,9 +50,11 @@ function operate() {
     displayContainer.classList.add('matrix-display');
     display.classList.add('small-font');
     display.textContent = 'Welcome to the Matrix';
+
     buttons.forEach(button => {
       button.classList.add('white-world');
     });
+
     allClear.classList.remove('white-world');
     allClear.textContent = 'Red';
     backSpace.classList.add('blue-pill');
@@ -59,6 +63,7 @@ function operate() {
     footer.style.visibility = 'hidden';
     return;
   }
+
   if (operator === '+') {
     result = ((Number(firstNum) * factor + Number(secondNum) * factor) / factor).toString();
   } else if (operator === '-') {
@@ -68,6 +73,7 @@ function operate() {
   } else if (operator === '/') {
     result = (((firstNum * factor) / (secondNum * factor))).toString();
   }
+
   result = handleLargeDigits(result);
   firstNum = result;
   operator = '';
@@ -82,15 +88,18 @@ function doAllClear() {
     document.body.classList.remove('white-world');
     displayContainer.classList.remove('matrix-display');
     display.classList.remove('small-font');
+
     buttons.forEach(button => {
       button.classList.remove('white-world');
     });
+
     allClear.textContent = 'AC';
     backSpace.classList.remove('blue-pill');
     backSpace.textContent = 'BS';
     title.style.visibility = 'visible';
     footer.style.visibility = 'visible';
   }
+
   firstNum = '';
   operator = '';
   secondNum = '';
@@ -101,18 +110,19 @@ function doAllClear() {
 }
 
 function doBackSpace() {
-  if (firstNum === '' && !operator) {
-    return;
-  }
+  if (firstNum === '' && !operator) return;
+
   if (firstNum === result && !operator) {
     firstNum = '';
     display.textContent = '0';
     return;
   }
+
   if (operator && secondNum === '') {
     operator = '';
     onSecondNum = false;
   }
+
   if (!onSecondNum) {
     if (firstNum.length === 1) {
       firstNum = '';
@@ -134,99 +144,62 @@ function doBackSpace() {
 
 function handleDecimal() {
   if (!onSecondNum) {
-    if (firstNum === '' || firstNum === result && !operator) {
-      firstNum = '0';
-    }
-    if (firstNum.includes('.')) {
-      return;
-    }
+    if (firstNum === '' || firstNum === result && !operator) firstNum = '0';
+    if (firstNum.includes('.')) return;
     firstNum += '.';
     display.textContent = firstNum;
   } else {
-    if (secondNum === '') {
-      secondNum = '0';
-    }
-    if (secondNum.includes('.')) {
-      return;
-    }
+    if (secondNum === '') secondNum = '0';
+    if (secondNum.includes('.')) return;
     secondNum += '.';
     display.textContent = secondNum;
   }
 }
 
-title.addEventListener('click', () => {
-  if (matrix) {
-    return;
-  }
-  if (hello) {
-    if (secondNum !== '') {
-      display.textContent = secondNum;
-    } else if (firstNum !== '') {
-      display.textContent = firstNum;
-    } else {
-      display.textContent = '0';
-    }
-    hello = false;
-    return;
-  }
-  hello = true;
-  display.textContent = 'Hello';
-});
+display.textContent = 'Hello';
+
+setTimeout(() => {
+  display.textContent = '0';
+}, 2000);
 
 buttons.forEach(button => {
   button.addEventListener('click', () => {
-    if (button.className.includes('all-clear')) {
-      doAllClear();
-      return;
-    }
-    if (freezed) {
-      return;
-    }
-    if (button.className.includes('back-space')) {
-      doBackSpace();
-    }
+    if (button.className.includes('all-clear')) return doAllClear();
+    if (freezed) return;
+    if (button.className.includes('back-space')) doBackSpace();
+
     if (button.className.includes('number')) {
       if (!onSecondNum) {
-        if (firstNum === result && !operator) {
-          firstNum = '';
-        }
+        if (firstNum === result && !operator) firstNum = '';
+
         if (firstNum === '0') {
-          if (button.className.includes('zero')) {
-            return;
-          }
+          if (button.className.includes('zero')) return;
           firstNum = button.textContent;
         } else {
-          if (firstNum.length >= 12) {
-            return;
-          }
+          if (firstNum.length >= 12) return;
           firstNum += button.textContent;
         }
+
         display.textContent = firstNum;
       } else {
         if (secondNum === '0') {
-          if (button.className.includes('zero')) {
-            return;
-          }
+          if (button.className.includes('zero')) return;
           secondNum = button.textContent;
         } else {
-          if (secondNum.length >= 12) {
-            return;
-          }
+          if (secondNum.length >= 12) return;
           secondNum += button.textContent;
         }
+
         display.textContent = secondNum;
       }
     }
-    if (button.className.includes('decimal')) {
-      handleDecimal();
-    }
+
+    if (button.className.includes('decimal')) handleDecimal();
+
     if (button.className.includes('operator')) {
-      if (firstNum === '') {
-        return;
-      }
-      if (secondNum) {
-        operate();
-      }
+      if (firstNum === '') return;
+      if (secondNum) operate();
+
       if (button.className.includes('divide')) {
         operator = '/';
       } else if (button.className.includes('multiply')) {
@@ -236,84 +209,60 @@ buttons.forEach(button => {
       } else if (button.className.includes('add')) {
         operator = '+';
       }
+
       onSecondNum = true;
     }
     if (button.className.includes('equals')) {
-      if (firstNum && secondNum) {
-        operate();
-      }
+      if (firstNum && secondNum) operate();
     }
   });
 });
 
 document.addEventListener('keydown', (e) => {
-  if (e.key === 'Delete') {
-    doAllClear();
-    return;
-  }
-  if (freezed) {
-    return;
-  }
-  if (e.key === 'Backspace') {
-    doBackSpace();
-  }
-
+  if (e.key === 'Delete') return doAllClear();
+  if (freezed) return;
+  if (e.key === 'Backspace') doBackSpace();
   const numberKeys = '0123456789';
 
   if (numberKeys.includes(e.key)) {
     if (!onSecondNum) {
-      if (firstNum === result && !operator) {
-        firstNum = '';
-      }
+      if (firstNum === result && !operator) firstNum = '';
       if (firstNum === '0') {
-        if (e.key === '0') {
-          return;
-        }
+        if (e.key === '0') return;
         firstNum = e.key;
       } else {
-        if (firstNum.length >= 12) {
-          return;
-        }
+        if (firstNum.length >= 12) return;
         firstNum += e.key;
       }
+
       display.textContent = firstNum;
     } else {
       if (secondNum === '0') {
-        if (e.key === '0') {
-          return;
-        }
+        if (e.key === '0') return;
         secondNum = e.key;
       } else {
-        if (secondNum.length >= 12) {
-          return;
-        }
+        if (secondNum.length >= 12) return;
         secondNum += e.key;
       }
+
       display.textContent = secondNum;
     }
   }
-  if (e.key === '.') {
-    handleDecimal();
-  }
+
+  if (e.key === '.') handleDecimal();
 
   const operatorSymbols = '+-*/';
 
   if (operatorSymbols.includes(e.key)) {
-    if (firstNum === '') {
-      return;
-    }
-    if (secondNum) {
-      operate();
-    }
+    if (firstNum === '') return;
+    if (secondNum) operate();
     operator = e.key;
     onSecondNum = true;
   }
-  if (e.key === 'Enter') {
-    e.preventDefault();
-  }
+
+  if (e.key === 'Enter') e.preventDefault();
+
   if (e.key === '=' || e.key === 'Enter') {
-    if (firstNum && secondNum) {
-      operate();
-    }
+    if (firstNum && secondNum) operate();
   }
 });
