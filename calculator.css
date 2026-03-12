@@ -6,33 +6,39 @@
 * {
   margin: 0;
   padding: 0;
+  font-family: Roboto, Arial, Helvetica, sans-serif;
   box-sizing: border-box;
+}
+
+:root {
+  --background-theme: #3d81b9;
+  --light-green-yellow-theme: #c1e62d;
+  --dark-green-yellow-theme: #a3c616;
+  --olive-theme: #425a22;
+  --light-green-theme: #00cb00;
+  --green-theme: forestgreen;
+  --red-theme: orangered;
+  --light-blue-theme: skyblue;
+  --blue-theme: royalblue;
+  --white-theme: #fff;
+  --light-gray-theme: #c7c7c7;
+  --gray-theme: #b5b5b5;
+  --dark-gray-theme: #777;
+  --black-theme: #222;
+  --shadow-theme: rgba(0, 0, 0, 0.25);
+}
+
+html {
   font-size: 10px;
 }
 
 body {
   display: flex;
-  flex-direction: column;
   justify-content: center;
   align-items: center;
-  gap: 4.8rem;
   height: 100vh;
-  background: #3d81b9;
-  font-family: Roboto, Arial, Helvetica, sans-serif;
-}
-
-.main {
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  gap: 4.8rem;
-}
-
-.title {
-  margin-top: -8rem;
-  color: #fff;
-  font-size: 3.2rem;
+  margin: -2rem 0 0;
+  background-color: var(--background-theme);
 }
 
 .container {
@@ -40,67 +46,74 @@ body {
   flex-direction: column;
   justify-content: center;
   align-items: center;
+  gap: 1.6rem;
   width: 34rem;
-  height: 48rem;
-  background: #fff;
+  padding: 1.6rem 2.4rem 1.4rem;
+  background-color: var(--white-theme);
   border-radius: 1.2rem;
-  box-shadow: 0 1.6rem 0 #b5b5b5, 1.2rem 2.8rem 1.2rem 0 rgba(0, 0, 0, 0.25);
+  box-shadow: 0 1.8rem var(--gray-theme), 1.2rem 2.8rem 1.2rem var(--shadow-theme);
+}
+
+.title {
+  color: var(--dark-gray-theme);
+  font-size: 2.4rem;
+}
+
+.container div {
+  display: flex;
+  gap: 1.2rem;
 }
 
 .display-container {
-  padding: 1.2rem 0.8rem;
-  margin: 0.8rem 0 3.2rem;
-  width: 29.6rem;
+  display: flex;
+  justify-content: flex-end;
+  width: 28.8rem;
   height: 6.4rem;
-  background:linear-gradient(#c1e62d, #a3c616);
-  color: #425a22;
+  margin-bottom: 2rem;
+  padding: 1.4rem 0.8rem 0.8rem;
+  color: var(--olive-theme);
+  background-image: linear-gradient(var(--light-green-yellow-theme), var(--dark-green-yellow-theme));
   border-radius: 0.8rem;
-  border: 0.2rem solid #fff;
-  outline: 0.4rem solid #777;
+  border: 0.3rem solid var(--white-theme);
+  outline: 0.4rem solid var(--dark-gray-theme);
 }
 
 .display {
-  text-align: right;
-  font-size: 3.6rem;
   font-weight: 600;
+  font-size: 3.4rem;
   letter-spacing: 0.1rem;
 }
 
 .first-row {
-  display: flex;
-  width: 100%;
   justify-content: flex-end;
+  width: 100%;
+}
+
+.back-space,
+.all-clear {
+  font-size: 2.4rem;
+  color: var(--white-theme);
 }
 
 .back-space {
-  margin-right: 0.8rem;
-  font-size: 24px;
-  background: forestgreen;
-  color: #fff;
+  background-color: var(--green-theme);
 }
 
 .all-clear {
-  margin-right: 2.4rem;
-  font-size: 2.4rem;
-  background: orangered;
-  color: #fff;
+  background-color: var(--red-theme);
 }
 
 button {
-  font-family: Arial, Helvetica, sans-serif;
-  margin: 0.8rem 0.4rem;
-  border: none;
   width: 6.4rem;
   height: 5.2rem;
-  border-radius: 0.8rem;
-  background: #c7c7c7;
-  color: #111;
-  font-size: 3.2rem;
   font-weight: 600;
-  box-shadow: inset -0.4rem -0.4rem 0.4rem 0 rgba(0, 0, 0, 0.25);
-}
-
-button:hover {
+  font-size: 3.2rem;
+  font-family: Arial, Helvetica, sans-serif;
+  color: var(--black-theme);
+  background-color: var(--light-gray-theme);
+  border: none;
+  border-radius: 0.8rem;
+  box-shadow: inset -0.4rem -0.4rem 0.4rem 0 var(--shadow-theme);
   cursor: pointer;
 }
 
@@ -109,46 +122,135 @@ button:active {
 }
 
 .operator {
-  background: skyblue;
+  background-color: var(--light-blue-theme);
 }
 
 .equals {
-  background: royalblue;
-  color: #fff;
+  color: var(--white-theme);
+  background-color: var(--blue-theme);
 }
 
 .white-world {
-  background: #fff;
-  color: #fff;
+  color: var(--white-theme);
+  background-color: var(--white-theme);
+  cursor: initial;
 }
 
 .matrix-display {
-  background: #111;
-  color: #00c700;
+  color: var(--light-green-theme);
+  background-image: linear-gradient(var(--black-theme));
 }
 
 .small-font {
   margin-top: 0.4rem;
-  font-size: 2.4rem; 
+  font-size: 2.4rem;
+}
+
+.red-pill {
+  background-color: var(--red-theme);
+  cursor: pointer;
 }
 
 .blue-pill {
-  background: mediumblue;
+  background-color: var(--blue-theme);
+  cursor: pointer;
 }
 
-.footer {
+.hidden {
+  visibility: hidden;
+}
+
+.link-container {
   display: flex;
   justify-content: center;
+  margin: -0.2rem 0;
 }
 
-a {
-  display: block;
-  color: #fff;
+.link-container a {
+  font-weight: 600;
   font-size: 1.6rem;
-  font-weight: 500;
   text-decoration: none;
+  color: var(--dark-gray-theme);
 }
 
-a:hover {
-  opacity: 0.8;
+.link-container a:hover {
+  text-decoration: underline;
+}
+/* For smartphones in portrait mode */
+@media screen and (orientation: portrait) {
+  html {
+    font-size: 7px;
+  }
+}
+
+@media screen and (orientation: portrait) and (min-width: 20.01rem) {
+  html {
+    font-size: 8px;
+  }
+}
+
+@media screen and (orientation: portrait) and (min-width: 24rem) and (min-height: calc(50rem - 6rem)) {
+  html {
+    font-size: 8.5px;
+  }
+}
+
+@media screen and (orientation: portrait) and (min-width: 24rem) and (min-height: calc(54rem - 6rem)) {
+  html {
+    font-size: 9px;
+  }
+}
+
+@media screen and (orientation: portrait) and (min-width: 48rem) {
+  html {
+    font-size: 10px;
+  }
+}
+/* For smartphones in landscape mode */
+@media screen and (orientation: landscape) {
+  html {
+    font-size: 7px;
+  }
+
+  body {
+    margin: 8rem 0 10rem;
+  }
+}
+
+@media screen and (orientation: landscape) and (min-width: 41rem) {
+  html {
+    font-size: 8px;
+  }
+}
+
+@media screen and (orientation: landscape) and (min-width: 47rem) {
+  html {
+    font-size: 8.5px;
+  }
+}
+
+@media screen and (orientation: landscape) and (min-width: 53rem) {
+  html {
+    font-size: 9px;
+  }
+}
+/* For Nest Hub */
+@media screen and (orientation: landscape) and (min-width: 64rem) {
+  html {
+    font-size: 8px;
+  }
+
+  body {
+    margin: 0;
+  }
+}
+/* For tablets and laptops */
+@media screen and (orientation: landscape) and (min-width: 64rem) and (min-height: calc(48rem - 6rem)) {
+  html {
+    font-size: 10px;
+  }
+
+  body {
+    margin: -2rem 0 0;
+  }
 }
