@@ -6,8 +6,8 @@
 * {
   margin: 0;
   padding: 0;
-  font-family: Roboto, Arial, Helvetica, sans-serif;
   box-sizing: border-box;
+  font-family: Roboto, Arial, Helvetica, sans-serif;
 }
 
 :root {
@@ -36,8 +36,8 @@ body {
   display: flex;
   justify-content: center;
   align-items: center;
-  height: 100vh;
-  margin: -2rem 0 0;
+  min-height: 100vh;
+  padding: 6rem 0 8rem;
   background-color: var(--background-theme);
 }
 
@@ -55,8 +55,9 @@ body {
 }
 
 .title {
-  color: var(--dark-gray-theme);
   font-size: 2.4rem;
+  color: var(--dark-gray-theme);
+  
 }
 
 .container div {
@@ -73,9 +74,9 @@ body {
   padding: 1.4rem 0.8rem 0.8rem;
   color: var(--olive-theme);
   background-image: linear-gradient(var(--light-green-yellow-theme), var(--dark-green-yellow-theme));
-  border-radius: 0.8rem;
   border: 0.3rem solid var(--white-theme);
   outline: 0.4rem solid var(--dark-gray-theme);
+  border-radius: 0.8rem;
 }
 
 .display {
@@ -166,42 +167,48 @@ button:active {
   margin: -0.2rem 0;
 }
 
-.link-container a {
+.link-container .link {
   font-weight: 600;
   font-size: 1.6rem;
   text-decoration: none;
   color: var(--dark-gray-theme);
 }
 
-.link-container a:hover {
+.link-container .link:hover {
   text-decoration: underline;
 }
 /* For smartphones in portrait mode */
 @media screen and (orientation: portrait) {
   html {
-    font-size: 7px;
+    font-size: 6.5px;
   }
 }
 
-@media screen and (orientation: portrait) and (min-width: 20.01rem) {
+@media screen and (orientation: portrait) and (min-width: 22.5em) {
+  html {
+    font-size: 7.75px;
+  }
+}
+
+@media screen and (orientation: portrait) and (min-width: 24.3em) {
   html {
     font-size: 8px;
   }
 }
 
-@media screen and (orientation: portrait) and (min-width: 24rem) and (min-height: calc(50rem - 6rem)) {
+@media screen and (orientation: portrait) and (min-width: 25.75em) {
   html {
     font-size: 8.5px;
   }
 }
 
-@media screen and (orientation: portrait) and (min-width: 24rem) and (min-height: calc(54rem - 6rem)) {
+@media screen and (orientation: portrait) and (min-width: 26.75em) {
   html {
-    font-size: 9px;
+    font-size: 8.75px;
   }
 }
-
-@media screen and (orientation: portrait) and (min-width: 48rem) {
+/* For tablets in portrait mode */
+@media screen and (orientation: portrait) and (min-width: 48em) {
   html {
     font-size: 10px;
   }
@@ -209,48 +216,42 @@ button:active {
 /* For smartphones in landscape mode */
 @media screen and (orientation: landscape) {
   html {
-    font-size: 7px;
-  }
-
-  body {
-    margin: 8rem 0 10rem;
+    font-size: 6.5px;
   }
 }
 
-@media screen and (orientation: landscape) and (min-width: 41rem) {
+@media screen and (orientation: landscape) and (min-width: 41.6em) {
+  html {
+    font-size: 7.75px;
+  }
+}
+
+@media screen and (orientation: landscape) and (min-width: 52.7em) {
   html {
     font-size: 8px;
   }
 }
 
-@media screen and (orientation: landscape) and (min-width: 47rem) {
+@media screen and (orientation: landscape) and (min-width: 55.75em) {
   html {
     font-size: 8.5px;
   }
 }
 
-@media screen and (orientation: landscape) and (min-width: 53rem) {
+@media screen and (orientation: landscape) and (min-width: 58em) {
+  html {
+    font-size: 8.75px;
+  }
+}
+/* For small tablets in landscape mode */
+@media screen and (orientation: landscape) and (min-width: 64em) {
   html {
     font-size: 9px;
   }
 }
-/* For Nest Hub */
-@media screen and (orientation: landscape) and (min-width: 64rem) {
-  html {
-    font-size: 8px;
-  }
-
-  body {
-    margin: 0;
-  }
-}
-/* For tablets and laptops */
-@media screen and (orientation: landscape) and (min-width: 64rem) and (min-height: calc(48rem - 6rem)) {
+/* For middle and large tablets in landscape mode, laptops, and desktops */
+@media screen and (orientation: landscape) and (min-width: 73.75rem) {
   html {
     font-size: 10px;
-  }
-
-  body {
-    margin: -2rem 0 0;
   }
 }
