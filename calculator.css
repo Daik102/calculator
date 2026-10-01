@@ -29,7 +29,7 @@
 }
 
 html {
-  font-size: 10px;
+  font-size: 50%;
 }
 
 body {
@@ -41,13 +41,13 @@ body {
   background-color: var(--background-theme);
 }
 
-.container {
+.main {
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
   gap: 1.6rem;
-  width: 34rem;
+  max-width: 34rem;
   padding: 1.6rem 2.4rem 1.4rem;
   background-color: var(--white-theme);
   border-radius: 1.2rem;
@@ -60,7 +60,7 @@ body {
   
 }
 
-.container div {
+.main div {
   display: flex;
   gap: 1.2rem;
 }
@@ -68,7 +68,8 @@ body {
 .display-container {
   display: flex;
   justify-content: flex-end;
-  width: 28.8rem;
+  width: 100%;
+  max-width: 28.8rem;
   height: 6.4rem;
   margin-bottom: 2rem;
   padding: 1.4rem 0.8rem 0.8rem;
@@ -177,81 +178,17 @@ button:active {
 .link-container .link:hover {
   text-decoration: underline;
 }
-/* For smartphones in portrait mode */
-@media screen and (orientation: portrait) {
+
+/* For Middle and Large Smartphones */
+@media screen and (orientation: portrait) and (min-width: 24.25em) {
   html {
-    font-size: 6.5px;
+    font-size: 56.25%;
   }
 }
 
-@media screen and (orientation: portrait) and (min-width: 22.5em) {
+/* Tablets and Desktops */
+@media screen and (min-width: 48em) {
   html {
-    font-size: 7.75px;
-  }
-}
-
-@media screen and (orientation: portrait) and (min-width: 24.3em) {
-  html {
-    font-size: 8px;
-  }
-}
-
-@media screen and (orientation: portrait) and (min-width: 25.75em) {
-  html {
-    font-size: 8.5px;
-  }
-}
-
-@media screen and (orientation: portrait) and (min-width: 26.75em) {
-  html {
-    font-size: 8.75px;
-  }
-}
-/* For tablets in portrait mode */
-@media screen and (orientation: portrait) and (min-width: 48em) {
-  html {
-    font-size: 10px;
-  }
-}
-/* For smartphones in landscape mode */
-@media screen and (orientation: landscape) {
-  html {
-    font-size: 6.5px;
-  }
-}
-
-@media screen and (orientation: landscape) and (min-width: 41.6em) {
-  html {
-    font-size: 7.75px;
-  }
-}
-
-@media screen and (orientation: landscape) and (min-width: 52.7em) {
-  html {
-    font-size: 8px;
-  }
-}
-
-@media screen and (orientation: landscape) and (min-width: 55.75em) {
-  html {
-    font-size: 8.5px;
-  }
-}
-
-@media screen and (orientation: landscape) and (min-width: 58em) {
-  html {
-    font-size: 8.75px;
-  }
-}
-/* For small tablets in landscape mode */
-@media screen and (orientation: landscape) and (min-width: 64em) {
-  html {
-    font-size: 9px;
-  }
-}
-/* For middle and large tablets in landscape mode, laptops, and desktops */
-@media screen and (orientation: landscape) and (min-width: 73.75rem) {
-  html {
-    font-size: 10px;
+    font-size: 62.5%;
   }
 }
