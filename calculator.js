@@ -21,7 +21,7 @@ function doAllClear() {
 
 function doBackSpace() {
   if (document.body.classList.contains('white-world')) {
-    display.textContent = 'Are you serious?';
+    display.textContent = 'Hello Cypher';
 
     setTimeout(() => {
       if (document.body.classList.contains('white-world')) {
