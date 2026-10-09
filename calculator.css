@@ -7,7 +7,6 @@
   margin: 0;
   padding: 0;
   box-sizing: border-box;
-  font-family: Roboto, Arial, Helvetica, sans-serif;
 }
 
 :root {
@@ -30,6 +29,11 @@
 
 html {
   font-size: 50%;
+  font-family: Roboto, Arial, Helvetica, sans-serif;
+}
+
+button {
+  font-family: initial;
 }
 
 body {
@@ -37,6 +41,7 @@ body {
   justify-content: center;
   align-items: center;
   min-height: 100vh;
+  min-height: 100svh;
   padding: 6rem 0 8rem;
   background-color: var(--background-theme);
 }
